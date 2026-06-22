@@ -59,11 +59,21 @@
 </div></footer>
 
 <script>
-  const FORM_ENDPOINT=''; // paste your Formspree endpoint here
+  // Your Formspree endpoint or deployed backend. Until set (or on failure) the
+  // form opens a prefilled email to contact@homeservicereply.com so nothing is lost.
+  const FORM_ENDPOINT='';
+  const FALLBACK_EMAIL='contact@homeservicereply.com';
   document.getElementById('cf').onsubmit=async function(e){
     e.preventDefault();
-    const email=document.getElementById('cemail').value, msg=document.getElementById('cmsg').value;
-    if(FORM_ENDPOINT){try{await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email,message:msg})});}catch(_){}}
+    const email=document.getElementById('cemail').value.trim(), msg=document.getElementById('cmsg').value.trim();
+    if(!email) return;
+    let ok=false;
+    if(FORM_ENDPOINT){try{const r=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email,message:msg})});ok=r.ok;}catch(_){}}
+    if(!ok){
+      const subj=encodeURIComponent('Contact from '+email);
+      const body=encodeURIComponent(msg+'\n\nFrom: '+email);
+      window.location.href='mailto:'+FALLBACK_EMAIL+'?subject='+subj+'&body='+body;
+    }
     this.querySelector('button').style.display='none';
     document.getElementById('ok').style.display='block';
   };

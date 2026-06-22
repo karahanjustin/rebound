@@ -614,12 +614,28 @@ function calc(){
 }
 calls.value='8';value.value='600';
 calls.oninput=calc;value.oninput=calc;calc();
-const FORM_ENDPOINT=''; // paste your Formspree endpoint here, e.g. https://formspree.io/f/xxxxxxx
+// Where signups go. Set this to your deployed backend, e.g.
+//   'https://your-backend.onrender.com/api/signup'
+// or to a Formspree endpoint 'https://formspree.io/f/xxxxxxx'.
+// Until it is set (or if the request fails) the form opens a prefilled email
+// to contact@homeservicereply.com, so a signup is never silently lost.
+const SIGNUP_ENDPOINT='';
+const SIGNUP_FALLBACK_EMAIL='contact@homeservicereply.com';
 document.getElementById('suf').onsubmit=async function(e){
   e.preventDefault();
-  const email=document.getElementById('email').value;
-  if(FORM_ENDPOINT){
-    try{await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email})});}catch(_){}
+  const email=document.getElementById('email').value.trim();
+  if(!email) return;
+  let ok=false;
+  if(SIGNUP_ENDPOINT){
+    try{
+      const r=await fetch(SIGNUP_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email,source:'landing'})});
+      ok=r.ok;
+    }catch(_){}
+  }
+  if(!ok){
+    const subj=encodeURIComponent('Early access: HomeServiceReply');
+    const body=encodeURIComponent('I would like early access. My email: '+email);
+    window.location.href='mailto:'+SIGNUP_FALLBACK_EMAIL+'?subject='+subj+'&body='+body;
   }
   this.style.display='none';
   document.getElementById('ok').style.display='block';
