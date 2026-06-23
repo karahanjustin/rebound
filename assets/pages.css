@@ -14,13 +14,13 @@ nav.bar{position:sticky;top:0;z-index:50;background:rgba(246,245,241,.85);backdr
 nav.bar .row{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1100px;margin:0 auto;padding:0 24px}
 .brand{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.03em;color:var(--ink)}
 .brand:hover{text-decoration:none}
-.brand .mk{width:24px;height:24px;border-radius:7px;background:var(--accent)}
+.brand .mk{width:24px;height:24px;background:url('/favicon.svg') center/contain no-repeat}
 .navlinks{display:flex;gap:24px;font-size:15px;color:var(--ink2);font-weight:500}
 .navlinks a{color:var(--ink2)}
 .navlinks a:hover{color:var(--ink);text-decoration:none}
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;font-size:15px;padding:10px 18px;border-radius:11px;border:0;cursor:pointer}
 .btn:hover{background:var(--accent-d);text-decoration:none}
-@media(max-width:720px){.navlinks{display:none}}
+@media(max-width:880px){.navlinks{display:none}}
 
 main{padding:54px 0 72px}
 .kicker{font-size:13px;font-weight:600;color:var(--accent-d);letter-spacing:.05em;text-transform:uppercase}

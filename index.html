@@ -63,9 +63,7 @@
     backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   .nav .row{display:flex;align-items:center;justify-content:space-between;height:66px}
   .brand{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:700;font-size:21px;letter-spacing:-.03em}
-  .brand .mk{width:26px;height:26px;border-radius:8px;background:var(--accent);position:relative;flex:none}
-  .brand .mk::after{content:"";position:absolute;inset:7px 7px auto auto;width:9px;height:9px;border:2.5px solid #fff;
-    border-radius:50%;border-right-color:transparent;border-bottom-color:transparent;transform:rotate(35deg)}
+  .brand .mk{width:26px;height:26px;background:url('/favicon.svg') center/contain no-repeat;flex:none}
   .menu{display:flex;align-items:center;gap:30px;font-size:15px;color:var(--ink2);font-weight:500}
   .menu a:hover{color:var(--ink)}
   .navcta{display:flex;align-items:center;gap:18px}
@@ -641,5 +639,6 @@ document.getElementById('suf').onsubmit=async function(e){
   document.getElementById('ok').style.display='block';
 };
 </script>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>
