@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HomeServiceReply - Project Map</title>
+<title>HomeServiceReply</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,112 +94,52 @@
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="top">
-    <div class="title">
-      <span class="mk"></span>
-      <div><h1>HomeServiceReply</h1><div class="sub">Project map - everything in one place</div></div>
-    </div>
-    <span class="hint">Click any node to jump to it</span>
+<style>
+  #gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(1000px 500px at 50% -10%, #fdfcfa, #f6f5f1);z-index:50;padding:24px}
+  .gatecard{background:#fff;border:1px solid #e7e3da;border-radius:20px;padding:34px 30px;width:340px;max-width:100%;
+    text-align:center;box-shadow:0 20px 50px -22px rgba(40,30,15,.4)}
+  .gatecard .gmk{width:46px;height:46px;border-radius:13px;background:#e2502c;margin:0 auto 16px}
+  .gatecard h1{font-family:"Space Grotesk",-apple-system,sans-serif;font-weight:700;font-size:21px;letter-spacing:-.03em;color:#171511}
+  .gatecard p{font-size:13px;color:#8b867c;margin:4px 0 20px}
+  #gform{display:flex;flex-direction:column;gap:10px}
+  #gcode{border:1px solid #dcd7cc;border-radius:11px;padding:12px 14px;font-size:16px;font-family:inherit;
+    text-align:center;letter-spacing:.3em;outline:none}
+  #gcode:focus{border-color:#e2502c}
+  #gform button{border:0;background:#e2502c;color:#fff;font-weight:600;font-size:15px;border-radius:11px;
+    padding:12px;cursor:pointer;font-family:inherit}
+  #gform button:hover{background:#bd3c1d}
+  #gerr{color:#bd3c1d;font-size:12.5px;font-weight:600;min-height:16px;margin-top:10px}
+</style>
+
+<div id="gate">
+  <div class="gatecard">
+    <div class="gmk"></div>
+    <h1>HomeServiceReply</h1>
+    <p>Company access only</p>
+    <form id="gform">
+      <input id="gcode" type="password" inputmode="numeric" placeholder="code" autocomplete="off" autofocus>
+      <button type="submit">Unlock</button>
+    </form>
+    <div id="gerr"></div>
   </div>
-
-  <div class="map" id="map">
-    <svg id="wires" preserveAspectRatio="none"></svg>
-
-    <!-- HUB -->
-    <div class="node hub">
-      <div class="mk"></div>
-      <h2>HomeServiceReply</h2>
-      <p>Never lose a job to a missed call.</p>
-      <a class="live" href="https://homeservicereply.com" target="_blank" rel="noopener">Visit live site &#8599;</a>
-      <div class="chips">
-        <span class="chip ok"><span class="d"></span>Site live</span>
-        <span class="chip ok"><span class="d"></span>Backend built</span>
-        <span class="chip wait"><span class="d"></span>Not deployed</span>
-      </div>
-    </div>
-
-    <!-- LIVE SITE -->
-    <div class="node b-site">
-      <h3><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg></span>Live Site</h3>
-      <a class="row" href="https://homeservicereply.com" target="_blank" rel="noopener">Landing page<span class="ar">&#8599;</span></a>
-      <a class="row" href="https://homeservicereply.com/#pricing" target="_blank" rel="noopener">Pricing<span class="ar">&#8599;</span></a>
-      <a class="row" href="https://homeservicereply.com/customers.html" target="_blank" rel="noopener">Who it's for<span class="ar">&#8599;</span></a>
-      <a class="row" href="https://homeservicereply.com/about.html" target="_blank" rel="noopener">About + Contact<span class="ar">&#8599;</span></a>
-      <div class="legal">
-        <a href="https://homeservicereply.com/privacy.html" target="_blank" rel="noopener">Privacy</a>
-        <a href="https://homeservicereply.com/terms.html" target="_blank" rel="noopener">Terms</a>
-        <a href="https://homeservicereply.com/dpa.html" target="_blank" rel="noopener">DPA</a>
-        <a href="https://homeservicereply.com/imprint.html" target="_blank" rel="noopener">Imprint</a>
-      </div>
-      <a class="row" href="https://github.com/karahanjustin/rebound" target="_blank" rel="noopener" style="margin-top:6px">Site repo (GitHub Pages)<span class="ar">&#8599;</span></a>
-    </div>
-
-    <!-- BACKEND -->
-    <div class="node b-backend">
-      <h3><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg></span>Backend / Engine</h3>
-      <div class="flow"><b>Missed call</b> &#8594; text-back &#8594; AI qualifies &#8594; <b>books job</b> &#8594; owner alerted &#8594; dashboard</div>
-      <a class="row" href="https://github.com/karahanjustin/homeservicereply-backend" target="_blank" rel="noopener">Private backend repo<span class="ar">&#8599;</span></a>
-      <div class="tags">
-        <span class="tag">Secure webhooks</span><span class="tag">STOP compliance</span>
-        <span class="tag">Owner alerts</span><span class="tag">Signup capture</span>
-        <span class="tag">Time-aware slots</span><span class="tag">Multi-tenant</span>
-      </div>
-      <div class="meta" style="margin-top:9px">Production server validated (gunicorn), tested end to end.</div>
-    </div>
-
-    <!-- DEPLOY & ACCOUNTS -->
-    <div class="node b-deploy">
-      <h3><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1M9 11a8 8 0 0 1 9-7 8 8 0 0 1-7 9l-2 2-2-2z"/><circle cx="14.5" cy="9.5" r="1.2"/></svg></span>Deploy &amp; Accounts</h3>
-      <a class="deploybtn" href="https://render.com/deploy?repo=https://github.com/karahanjustin/homeservicereply-backend" target="_blank" rel="noopener">&#9650; Deploy to Render</a>
-      <a class="row" href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic key <span style="color:var(--ink3);font-weight:400">- AI brain</span><span class="ar">&#8599;</span></a>
-      <a class="row" href="https://console.twilio.com" target="_blank" rel="noopener">Twilio <span style="color:var(--ink3);font-weight:400">- number + texts, ~$1/mo</span><span class="ar">&#8599;</span></a>
-      <a class="row" href="https://dashboard.render.com" target="_blank" rel="noopener">Render <span style="color:var(--ink3);font-weight:400">- hosting</span><span class="ar">&#8599;</span></a>
-      <div class="meta" style="margin-top:6px">Zero-cost path: concierge + offline/local brain + self-host.</div>
-    </div>
-
-    <!-- BILLING -->
-    <div class="node b-billing">
-      <h3><span class="ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg></span>Billing - Stripe</h3>
-      <div class="meta"><b style="color:var(--ink)">Starter $49</b> &middot; <b style="color:var(--ink)">Pro $99</b> &middot; <b style="color:var(--ink)">Scale $199</b><br><span style="color:var(--ink3)">14-day free trial on every plan</span></div>
-      <div class="tags" style="margin-top:9px">
-        <span class="tag">Checkout</span><span class="tag">Customer portal</span>
-        <span class="tag">Webhook</span><span class="tag">Subscription gating</span>
-      </div>
-      <a class="row" href="https://dashboard.stripe.com" target="_blank" rel="noopener" style="margin-top:8px">Stripe dashboard<span class="ar">&#8599;</span></a>
-    </div>
-
-    <!-- GO-TO-MARKET -->
-    <div class="node b-gtm">
-      <h3><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg></span>Go-to-Market</h3>
-      <div class="meta">Distribution: lead finder, call tracker, cold outreach.</div>
-      <div class="flow" style="margin-top:9px"><b>Concierge MVP</b> &#8594; 3 paid pilots &#8594; automate</div>
-      <div class="meta">Economics: customer <b style="color:var(--money)">$49-199/mo</b> vs ~$3-5 cost to serve.</div>
-      <a class="row" href="mailto:contact@homeservicereply.com" style="margin-top:6px">contact@homeservicereply.com<span class="ar">&#8599;</span></a>
-    </div>
-
-    <!-- STATUS -->
-    <div class="node b-status">
-      <h3><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span>Status &amp; Next</h3>
-      <ul class="checklist">
-        <li class="done"><span class="mk2">&#10003;</span><span>Live site, legal pages, polish</span></li>
-        <li class="done"><span class="mk2">&#10003;</span><span>Hardened, tested backend</span></li>
-        <li class="done"><span class="mk2">&#10003;</span><span>Time-aware booking + Stripe billing</span></li>
-        <li class="done"><span class="mk2">&#10003;</span><span>Private repo + prod validated</span></li>
-        <li class="todo"><span class="mk2">&#9633;</span><span><b>Anthropic key</b> (or offline/local brain)</span></li>
-        <li class="todo"><span class="mk2">&#9633;</span><span><b>Twilio number</b> + point webhooks</span></li>
-        <li class="todo"><span class="mk2">&#9633;</span><span><b>Deploy on Render</b> + test a real call</span></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="foot">Local project map - links open the live site, repos, and consoles. Not published.</div>
 </div>
+<div id="vault" style="display:none"></div>
 
 <script>
+const PAY = {"salt":"zHkxOx6mxJqfqRXTJcRXAQ==","iv":"Q1qe0R5auMryTsLT","iters":200000,"ct":"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"};
+const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function unlock(code){
+  const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey(
+    {name:'PBKDF2', salt:b64d(PAY.salt), iterations:PAY.iters, hash:'SHA-256'},
+    km, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64d(PAY.iv)}, key, b64d(PAY.ct));
+  return new TextDecoder().decode(pt);
+}
 function drawMap(){
-  var svg=document.getElementById('wires'), map=document.getElementById('map');
-  var hub=document.querySelector('.hub');
+  var svg=document.getElementById('wires'), map=document.getElementById('map'), hub=document.querySelector('.hub');
+  if(!svg||!map||!hub) return;
   if(window.innerWidth<=880){svg.style.display='none';return;}
   svg.style.display='block';
   var mb=map.getBoundingClientRect();
@@ -208,16 +148,33 @@ function drawMap(){
   var out='';
   document.querySelectorAll('.node:not(.hub)').forEach(function(c){
     var b=c.getBoundingClientRect();
-    var cx=b.left-mb.left+b.width/2, cy=b.top-mb.top+b.height/2;
-    var mx=(hx+cx)/2;
+    var cx=b.left-mb.left+b.width/2, cy=b.top-mb.top+b.height/2, mx=(hx+cx)/2;
     out+='<path d="M'+hx+' '+hy+' C '+mx+' '+hy+', '+mx+' '+cy+', '+cx+' '+cy+'"/>';
   });
   out+='<circle cx="'+hx+'" cy="'+hy+'" r="4.5"/>';
   svg.innerHTML=out;
 }
-window.addEventListener('load',drawMap);
-window.addEventListener('resize',drawMap);
-if(document.fonts&&document.fonts.ready){document.fonts.ready.then(drawMap);}
+function reveal(html){
+  var v=document.getElementById('vault');
+  v.innerHTML=html; v.style.display='';
+  document.getElementById('gate').style.display='none';
+  drawMap();
+}
+window.addEventListener('resize', drawMap);
+(function(){ var c=sessionStorage.getItem('hsr_map'); if(c){ try{ reveal(c); }catch(e){} } })();
+document.getElementById('gform').addEventListener('submit', async function(e){
+  e.preventDefault();
+  var code=document.getElementById('gcode').value.trim();
+  try{
+    var html=await unlock(code);
+    if(html.indexOf('class="page"')===-1) throw new Error('bad');
+    sessionStorage.setItem('hsr_map', html);
+    reveal(html);
+  }catch(_){
+    document.getElementById('gerr').textContent='Wrong code. Try again.';
+    document.getElementById('gcode').value=''; document.getElementById('gcode').focus();
+  }
+});
 </script>
 </body>
 </html>
