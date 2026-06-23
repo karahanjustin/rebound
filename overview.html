@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HomeServiceReply - Project Map</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f5f1; --surface:#fff; --ink:#171511; --ink2:#605c53; --ink3:#8b867c;
+    --line:#e7e3da; --line2:#dcd7cc; --accent:#e2502c; --accent-d:#bd3c1d; --accent-soft:#fbe9e3;
+    --money:#13794f; --money-soft:#e4f3ec; --amber:#b5790c; --amber-soft:#f8eed6;
+    --disp:"Space Grotesk",-apple-system,sans-serif; --sans:"Inter",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);background:
+       radial-gradient(1200px 600px at 50% -5%, #fdfcfa, var(--paper));
+       color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1240px;margin:0 auto;padding:30px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+  .title{display:flex;align-items:center;gap:11px}
+  .title .mk{width:30px;height:30px;border-radius:9px;background:var(--accent)}
+  .title h1{font-family:var(--disp);font-weight:700;font-size:22px;letter-spacing:-.03em}
+  .title .sub{font-size:12.5px;color:var(--ink3);margin-top:1px}
+  .hint{font-size:12px;color:var(--ink3);background:var(--surface);border:1px solid var(--line);
+        padding:7px 12px;border-radius:999px}
+
+  .map{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px 96px;
+       align-items:center;margin-top:26px}
+  #wires{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  #wires path{fill:none;stroke:var(--accent);stroke-width:2;opacity:.32}
+  #wires circle{fill:var(--accent)}
+
+  .node{position:relative;z-index:1;background:var(--surface);border:1px solid var(--line);
+        border-radius:18px;padding:17px 18px;box-shadow:0 1px 0 rgba(0,0,0,.02),0 10px 26px -18px rgba(40,30,15,.32)}
+  .hub{grid-column:2;grid-row:2;z-index:2;text-align:center;background:#181611;color:#fff;
+       border-color:#181611;padding:24px 22px;border-radius:22px;
+       box-shadow:0 18px 44px -20px rgba(40,30,15,.6)}
+  .hub .mk{width:42px;height:42px;border-radius:12px;background:var(--accent);margin:0 auto 12px}
+  .hub h2{font-family:var(--disp);font-weight:700;font-size:24px;letter-spacing:-.03em}
+  .hub p{font-size:13px;color:#c9c3b8;margin:5px 0 14px}
+  .hub a.live{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;
+       font-weight:600;font-size:13.5px;padding:9px 15px;border-radius:10px;text-decoration:none}
+  .hub a.live:hover{background:var(--accent-d)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px}
+  .chip{font-size:11px;font-weight:600;padding:4px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:5px}
+  .chip .d{width:6px;height:6px;border-radius:50%}
+  .chip.ok{background:var(--money-soft);color:var(--money)} .chip.ok .d{background:var(--money)}
+  .chip.wait{background:var(--amber-soft);color:var(--amber)} .chip.wait .d{background:var(--amber)}
+
+  .node h3{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:-.01em;
+           display:flex;align-items:center;gap:9px;margin-bottom:11px}
+  .node h3 .ic{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+               background:var(--accent-soft);color:var(--accent-d);flex:none}
+  .node h3 .ic svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.9;fill:none;
+                   stroke-linecap:round;stroke-linejoin:round}
+  a.row{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);
+        font-size:13.5px;font-weight:500;padding:6px 8px;margin:0 -8px;border-radius:8px;transition:background .12s}
+  a.row:hover{background:#faf8f4}
+  a.row .ar{margin-left:auto;color:var(--ink3);font-size:12px}
+  a.row:hover .ar{color:var(--accent-d)}
+  .legal{display:flex;flex-wrap:wrap;gap:4px 6px;font-size:12px;margin:6px 2px 2px}
+  .legal a{color:var(--ink2);text-decoration:none;border-bottom:1px dotted var(--line2)}
+  .legal a:hover{color:var(--accent-d)}
+  .meta{font-size:12.5px;color:var(--ink2);line-height:1.5;margin:2px 2px 0}
+  .flow{font-size:12px;color:var(--ink2);background:#faf8f4;border:1px solid var(--line);
+        border-radius:10px;padding:9px 11px;line-height:1.65;margin-bottom:9px}
+  .flow b{color:var(--ink);font-weight:600}
+  .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .tag{font-size:11px;color:var(--ink2);background:#f3f1ec;border:1px solid var(--line);
+       padding:3px 8px;border-radius:6px}
+  .deploybtn{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:#fff;
+       font-weight:600;font-size:13px;padding:9px 13px;border-radius:9px;text-decoration:none;margin-bottom:4px}
+  .deploybtn:hover{background:#000}
+  .checklist{list-style:none;font-size:13px;line-height:1.45}
+  .checklist li{display:flex;gap:8px;padding:3px 0;color:var(--ink2)}
+  .checklist li b{color:var(--ink);font-weight:600}
+  .checklist .mk2{flex:none;width:16px;height:16px;border-radius:5px;margin-top:1px;display:flex;
+       align-items:center;justify-content:center;font-size:10px;font-weight:700}
+  .done .mk2{background:var(--money-soft);color:var(--money)}
+  .todo .mk2{background:var(--amber-soft);color:var(--amber)}
+  .foot{text-align:center;font-size:11.5px;color:var(--ink3);margin-top:34px}
+
+  @media(max-width:880px){
+    .map{grid-template-columns:1fr;gap:16px}
+    .node,.hub{grid-column:auto !important;grid-row:auto !important}
+    .hub{order:-1}
+    #wires{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <div class="title">
+      <span class="mk"></span>
+      <div><h1>HomeServiceReply</h1><div class="sub">Project map - everything in one place</div></div>
+    </div>
+    <span class="hint">Click any node to jump to it</span>
+  </div>
+
+  <div class="map" id="map">
+    <svg id="wires" preserveAspectRatio="none"></svg>
+
+    <!-- HUB -->
+    <div class="node hub">
+      <div class="mk"></div>
+      <h2>HomeServiceReply</h2>
+      <p>Never lose a job to a missed call.</p>
+      <a class="live" href="https://homeservicereply.com" target="_blank" rel="noopener">Visit live site &#8599;</a>
+      <div class="chips">
+        <span class="chip ok"><span class="d"></span>Site live</span>
+        <span class="chip ok"><span class="d"></span>Backend built</span>
+        <span class="chip wait"><span class="d"></span>Not deployed</span>
+      </div>
+    </div>
+
+    <!-- LIVE SITE -->
+    <div class="node b-site">
+      <h3><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg></span>Live Site</h3>
+      <a class="row" href="https://homeservicereply.com" target="_blank" rel="noopener">Landing page<span class="ar">&#8599;</span></a>
+      <a class="row" href="https://homeservicereply.com/#pricing" target="_blank" rel="noopener">Pricing<span class="ar">&#8599;</span></a>
+      <a class="row" href="https://homeservicereply.com/customers.html" target="_blank" rel="noopener">Who it's for<span class="ar">&#8599;</span></a>
+      <a class="row" href="https://homeservicereply.com/about.html" target="_blank" rel="noopener">About + Contact<span class="ar">&#8599;</span></a>
+      <div class="legal">
+        <a href="https://homeservicereply.com/privacy.html" target="_blank" rel="noopener">Privacy</a>
+        <a href="https://homeservicereply.com/terms.html" target="_blank" rel="noopener">Terms</a>
+        <a href="https://homeservicereply.com/dpa.html" target="_blank" rel="noopener">DPA</a>
+        <a href="https://homeservicereply.com/imprint.html" target="_blank" rel="noopener">Imprint</a>
+      </div>
+      <a class="row" href="https://github.com/karahanjustin/rebound" target="_blank" rel="noopener" style="margin-top:6px">Site repo (GitHub Pages)<span class="ar">&#8599;</span></a>
+    </div>
+
+    <!-- BACKEND -->
+    <div class="node b-backend">
+      <h3><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg></span>Backend / Engine</h3>
+      <div class="flow"><b>Missed call</b> &#8594; text-back &#8594; AI qualifies &#8594; <b>books job</b> &#8594; owner alerted &#8594; dashboard</div>
+      <a class="row" href="https://github.com/karahanjustin/homeservicereply-backend" target="_blank" rel="noopener">Private backend repo<span class="ar">&#8599;</span></a>
+      <div class="tags">
+        <span class="tag">Secure webhooks</span><span class="tag">STOP compliance</span>
+        <span class="tag">Owner alerts</span><span class="tag">Signup capture</span>
+        <span class="tag">Time-aware slots</span><span class="tag">Multi-tenant</span>
+      </div>
+      <div class="meta" style="margin-top:9px">Production server validated (gunicorn), tested end to end.</div>
+    </div>
+
+    <!-- DEPLOY & ACCOUNTS -->
+    <div class="node b-deploy">
+      <h3><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1M9 11a8 8 0 0 1 9-7 8 8 0 0 1-7 9l-2 2-2-2z"/><circle cx="14.5" cy="9.5" r="1.2"/></svg></span>Deploy &amp; Accounts</h3>
+      <a class="deploybtn" href="https://render.com/deploy?repo=https://github.com/karahanjustin/homeservicereply-backend" target="_blank" rel="noopener">&#9650; Deploy to Render</a>
+      <a class="row" href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic key <span style="color:var(--ink3);font-weight:400">- AI brain</span><span class="ar">&#8599;</span></a>
+      <a class="row" href="https://console.twilio.com" target="_blank" rel="noopener">Twilio <span style="color:var(--ink3);font-weight:400">- number + texts, ~$1/mo</span><span class="ar">&#8599;</span></a>
+      <a class="row" href="https://dashboard.render.com" target="_blank" rel="noopener">Render <span style="color:var(--ink3);font-weight:400">- hosting</span><span class="ar">&#8599;</span></a>
+      <div class="meta" style="margin-top:6px">Zero-cost path: concierge + offline/local brain + self-host.</div>
+    </div>
+
+    <!-- BILLING -->
+    <div class="node b-billing">
+      <h3><span class="ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg></span>Billing - Stripe</h3>
+      <div class="meta"><b style="color:var(--ink)">Starter $49</b> &middot; <b style="color:var(--ink)">Pro $99</b> &middot; <b style="color:var(--ink)">Scale $199</b><br><span style="color:var(--ink3)">14-day free trial on every plan</span></div>
+      <div class="tags" style="margin-top:9px">
+        <span class="tag">Checkout</span><span class="tag">Customer portal</span>
+        <span class="tag">Webhook</span><span class="tag">Subscription gating</span>
+      </div>
+      <a class="row" href="https://dashboard.stripe.com" target="_blank" rel="noopener" style="margin-top:8px">Stripe dashboard<span class="ar">&#8599;</span></a>
+    </div>
+
+    <!-- GO-TO-MARKET -->
+    <div class="node b-gtm">
+      <h3><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg></span>Go-to-Market</h3>
+      <div class="meta">Distribution: lead finder, call tracker, cold outreach.</div>
+      <div class="flow" style="margin-top:9px"><b>Concierge MVP</b> &#8594; 3 paid pilots &#8594; automate</div>
+      <div class="meta">Economics: customer <b style="color:var(--money)">$49-199/mo</b> vs ~$3-5 cost to serve.</div>
+      <a class="row" href="mailto:contact@homeservicereply.com" style="margin-top:6px">contact@homeservicereply.com<span class="ar">&#8599;</span></a>
+    </div>
+
+    <!-- STATUS -->
+    <div class="node b-status">
+      <h3><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span>Status &amp; Next</h3>
+      <ul class="checklist">
+        <li class="done"><span class="mk2">&#10003;</span><span>Live site, legal pages, polish</span></li>
+        <li class="done"><span class="mk2">&#10003;</span><span>Hardened, tested backend</span></li>
+        <li class="done"><span class="mk2">&#10003;</span><span>Time-aware booking + Stripe billing</span></li>
+        <li class="done"><span class="mk2">&#10003;</span><span>Private repo + prod validated</span></li>
+        <li class="todo"><span class="mk2">&#9633;</span><span><b>Anthropic key</b> (or offline/local brain)</span></li>
+        <li class="todo"><span class="mk2">&#9633;</span><span><b>Twilio number</b> + point webhooks</span></li>
+        <li class="todo"><span class="mk2">&#9633;</span><span><b>Deploy on Render</b> + test a real call</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot">Local project map - links open the live site, repos, and consoles. Not published.</div>
+</div>
+
+<script>
+function drawMap(){
+  var svg=document.getElementById('wires'), map=document.getElementById('map');
+  var hub=document.querySelector('.hub');
+  if(window.innerWidth<=880){svg.style.display='none';return;}
+  svg.style.display='block';
+  var mb=map.getBoundingClientRect();
+  var hx=hub.getBoundingClientRect().left-mb.left+hub.offsetWidth/2;
+  var hy=hub.getBoundingClientRect().top-mb.top+hub.offsetHeight/2;
+  var out='';
+  document.querySelectorAll('.node:not(.hub)').forEach(function(c){
+    var b=c.getBoundingClientRect();
+    var cx=b.left-mb.left+b.width/2, cy=b.top-mb.top+b.height/2;
+    var mx=(hx+cx)/2;
+    out+='<path d="M'+hx+' '+hy+' C '+mx+' '+hy+', '+mx+' '+cy+', '+cx+' '+cy+'"/>';
+  });
+  out+='<circle cx="'+hx+'" cy="'+hy+'" r="4.5"/>';
+  svg.innerHTML=out;
+}
+window.addEventListener('load',drawMap);
+window.addEventListener('resize',drawMap);
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(drawMap);}
+</script>
+</body>
+</html>
